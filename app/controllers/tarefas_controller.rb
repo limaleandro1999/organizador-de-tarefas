@@ -1,10 +1,21 @@
 class TarefasController < ApplicationController
   before_action :set_tarefa, only: [:show, :edit, :update, :destroy]
 
+  def finalizar
+    @tarefa = Tarefa.find(params[:id])
+    
+    respond_to do |format|
+      if @tarefa.update(:finalizado => true)
+        format.html { redirect_to action: "index" }
+      end
+    end
+    
+  end
   # GET /tarefas
   # GET /tarefas.json
   def index
-    @tarefas = Tarefa.where(user_id: current_user.id)
+    @tarefas_finalizadas = Tarefa.where(user_id: current_user.id, finalizado: true)
+    @tarefas_nao_finalizadas = Tarefa.where(user_id: current_user.id, finalizado: false)
   end
 
   # GET /tarefas/1
