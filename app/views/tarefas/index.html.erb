@@ -1,31 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Tarefas</h1>
-<h3>Finalizadas</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Descrição</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @tarefas_finalizadas.each do |tarefa| %>
-      <tr>
-        <td><%= tarefa.titulo %></td>
-        <td><%= tarefa.descricao %></td>
-        <td><%= link_to 'Finalizar', controller: "tarefas", action: "finalizar", id: tarefa %></td>
-        <td><%= link_to 'Mostrar', tarefa %></td>
-        <td><%= link_to 'Editar', edit_tarefa_path(tarefa) %></td>
-        <td><%= link_to 'Excluir', tarefa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
 <h3>Não Finalizadas</h3>
 <table>
   <thead>
@@ -42,6 +18,31 @@
         <td><%= tarefa.titulo %></td>
         <td><%= tarefa.descricao %></td>
         <td><%= link_to 'Finalizar', controller: "tarefas", action: "finalizar", id: tarefa %></td>
+        <td><%= link_to 'Mostrar', tarefa %></td>
+        <td><%= link_to 'Editar', edit_tarefa_path(tarefa) %></td>
+        <td><%= link_to 'Excluir', tarefa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h3>Finalizadas</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Descrição</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tarefas_finalizadas.each do |tarefa| %>
+      <tr>
+        <td><%= tarefa.titulo %></td>
+        <td><%= tarefa.descricao %></td>
         <td><%= link_to 'Mostrar', tarefa %></td>
         <td><%= link_to 'Editar', edit_tarefa_path(tarefa) %></td>
         <td><%= link_to 'Excluir', tarefa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
