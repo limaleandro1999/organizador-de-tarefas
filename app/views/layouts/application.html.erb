@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="http://railsgirls.com/assets/bootstrap.css">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $("#finalizadas").hide();
+        $("#finalizadas-tab").click(function(){
+            $("#nao_finalizadas").hide();
+            $("#finalizadas").show();
+        });
+        $("#nao_finalizadas-tab").click(function(){
+            $("#finalizadas").hide();
+            $("#nao_finalizadas").show();
+        });
+      });
+    </script>
   </head>
 
   <body>

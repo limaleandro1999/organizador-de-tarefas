@@ -1,55 +1,70 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Tarefas</h1>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" id="nao_finalizadas-tab" >Não Finalizadas <%= @tarefas_nao_finalizadas.count(:id) %></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="finalizadas-tab" >Finalizadas <%= @tarefas_finalizadas.count(:id) %></a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div id="finalizadas">
+    <h3>Finalizadas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <% @tarefas_finalizadas.each do |tarefa| %>
+          <tr>
+            <td><%= tarefa.titulo %></td>
+            <td><%= tarefa.descricao %></td>
+            <td><%= link_to 'Mostrar', tarefa %></td>
+            <td><%= link_to 'Editar', edit_tarefa_path(tarefa) %></td>
+            <td><%= link_to 'Excluir', tarefa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="nao_finalizadas" >
+    <h3>Não Finalizadas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <% @tarefas_nao_finalizadas.each do |tarefa| %>
+          <tr>
+            <td><%= tarefa.titulo %></td>
+            <td><%= tarefa.descricao %></td>
+            <td><%= link_to 'Finalizar', controller: "tarefas", action: "finalizar", id: tarefa %></td>
+            <td><%= link_to 'Mostrar', tarefa %></td>
+            <td><%= link_to 'Editar', edit_tarefa_path(tarefa) %></td>
+            <td><%= link_to 'Excluir', tarefa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<h3>Não Finalizadas</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Descrição</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tarefas_nao_finalizadas.each do |tarefa| %>
-      <tr>
-        <td><%= tarefa.titulo %></td>
-        <td><%= tarefa.descricao %></td>
-        <td><%= link_to 'Finalizar', controller: "tarefas", action: "finalizar", id: tarefa %></td>
-        <td><%= link_to 'Mostrar', tarefa %></td>
-        <td><%= link_to 'Editar', edit_tarefa_path(tarefa) %></td>
-        <td><%= link_to 'Excluir', tarefa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
-<h3>Finalizadas</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Descrição</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @tarefas_finalizadas.each do |tarefa| %>
-      <tr>
-        <td><%= tarefa.titulo %></td>
-        <td><%= tarefa.descricao %></td>
-        <td><%= link_to 'Mostrar', tarefa %></td>
-        <td><%= link_to 'Editar', edit_tarefa_path(tarefa) %></td>
-        <td><%= link_to 'Excluir', tarefa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
