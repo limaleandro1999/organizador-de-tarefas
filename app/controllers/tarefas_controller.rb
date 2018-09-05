@@ -3,9 +3,10 @@ class TarefasController < ApplicationController
 
   def finalizar
     @tarefa = Tarefa.find(params[:id])
+    data_atual = DateTime.now
     
     respond_to do |format|
-      if @tarefa.update(:finalizado => true)
+      if @tarefa.update(:finalizado => true, :data_finalizado => data_atual.strftime("%Y-%m-%d"))
         format.html { redirect_to action: "index" }
       end
     end
@@ -15,7 +16,6 @@ class TarefasController < ApplicationController
   # GET /tarefas.json
   def index
     data_atual = DateTime.now
-    data_atual.strftime("%Y-%m-%d")
 
     @tarefas_finalizadas = Tarefa.where(user_id: current_user.id, finalizado: true)
     @tarefas_em_andamento = Tarefa.where("prazo >= '#{data_atual.strftime("%Y-%m-%d")}' and finalizado = false")
