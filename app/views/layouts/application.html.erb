@@ -6,6 +6,7 @@
     <%= csp_meta_tag %>
     
     <link rel="stylesheet" href="http://railsgirls.com/assets/bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
@@ -13,14 +14,22 @@
 
     <script>
       $(document).ready(function(){
+        $("#em_atraso").hide();
         $("#finalizadas").hide();
-        $("#finalizadas-tab").click(function(){
-            $("#nao_finalizadas").hide();
-            $("#finalizadas").show();
+        $("#em_andamento-tab").click(function(){
+          $("#em_andamento").show();
+          $("#em_atraso").hide();
+          $("#finalizadas").hide();
         });
-        $("#nao_finalizadas-tab").click(function(){
-            $("#finalizadas").hide();
-            $("#nao_finalizadas").show();
+        $("#em_atraso-tab").click(function(){
+          $("#em_andamento").hide();
+          $("#em_atraso").show();
+          $("#finalizadas").hide();
+        });
+        $("#finalizadas-tab").click(function(){
+          $("#em_andamento").hide();
+          $("#em_atraso").hide();
+          $("#finalizadas").show();
         });
       });
     </script>

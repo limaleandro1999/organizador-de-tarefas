@@ -14,8 +14,12 @@ class TarefasController < ApplicationController
   # GET /tarefas
   # GET /tarefas.json
   def index
+    data_atual = DateTime.now
+    data_atual.strftime("%Y-%m-%d")
+
     @tarefas_finalizadas = Tarefa.where(user_id: current_user.id, finalizado: true)
-    @tarefas_nao_finalizadas = Tarefa.where(user_id: current_user.id, finalizado: false)
+    @tarefas_em_andamento = Tarefa.where("prazo >= '#{data_atual.strftime("%Y-%m-%d")}' and finalizado = false")
+    @tarefas_em_atraso = Tarefa.where("prazo < '#{data_atual.strftime("%Y-%m-%d")}' and finalizado = false")
   end
 
   # GET /tarefas/1
@@ -25,7 +29,7 @@ class TarefasController < ApplicationController
 
   # GET /tarefas/new
   def new
-    @tarefa = Tarefa.new
+    @tarefa = Tarefa.new 
   end
 
   # GET /tarefas/1/edit
@@ -39,6 +43,7 @@ class TarefasController < ApplicationController
     @tarefa = Tarefa.new
     @tarefa.titulo = tarefa_params["titulo"]
     @tarefa.descricao = tarefa_params["descricao"]
+    @tarefa.prazo =  params["tarefa"]["prazo"]
     @tarefa.user_id = current_user.id
 
     respond_to do |format|
@@ -55,8 +60,13 @@ class TarefasController < ApplicationController
   # PATCH/PUT /tarefas/1
   # PATCH/PUT /tarefas/1.json
   def update
+    @tarefa = Tarefa.find(params[:id])
+    titulo = params[:tarefa][:titulo]
+    descricao = params[:tarefa][:descricao]
+    prazo = params[:tarefa][:prazo]
+
     respond_to do |format|
-      if @tarefa.update(tarefa_params)
+      if @tarefa.update(:titulo => titulo, :descricao => descricao, :prazo => prazo)
         format.html { redirect_to @tarefa, notice: 'Tarefa was successfully updated.' }
         format.json { render :show, status: :ok, location: @tarefa }
       else

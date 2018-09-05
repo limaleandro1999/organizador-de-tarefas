@@ -10,5 +10,10 @@
   <%= @tarefa.descricao %>
 </p>
 
+<p>
+  <strong>Prazo:</strong>
+  <%= !@tarefa.prazo.nil? ? @tarefa.prazo.strftime("%d/%m/%Y") : " " %>
+</p>
+
 <%= link_to 'Editar', edit_tarefa_path(@tarefa) %> |
 <%= link_to 'Voltar', tarefas_path %>
